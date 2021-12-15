@@ -1,4 +1,6 @@
 """This module contains regularity detection functions."""
+import pandas as pd
+import numpy as np
 
 def __get_intervals(transactions_dates):
     """
@@ -73,7 +75,7 @@ def detect_regular_transactions(transactions):
     # compute frequency based on mean interval
     frequency = pd.Series(__frequency(mean_interval), index=mean_interval.index)
     table.loc[frequency.index, "frequency"] = frequency
-    table["regularity"] = transactions.frequency.notnull().apply(
+    table["regularity"] = table.frequency.notnull().apply(
         lambda x: "Y" if x else "N"
     )
 
